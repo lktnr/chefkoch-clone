@@ -1,16 +1,26 @@
+import secrets
 from flask import Flask
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
+from .models.base import Base
+from flask_wtf import CSRFProtect
+from flask_bootstrap import Bootstrap5
+from .models.models import Recipe, Ingredient, User
+from sqlalchemy.orm import Session
+
 
 app = Flask(__name__)
 
-engine = create_engine("sqlite+pysqlite:///:memory:", echo=True)
+foo = secrets.token_urlsafe(16)
+app.secret_key = foo
+csrf = CSRFProtect(app)
 
+bootstrap = Bootstrap5(app)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+engine = create_engine(
+    "postgresql+psycopg2://root:root@localhost:5432/postgres")
 
+Base.metadata.create_all(engine)
+session = Session(engine)
 
-@app.route('/hello')
-def hello():
-    return 'Hello, World'
+# Bottom of file
+from . import views  # nopep8
