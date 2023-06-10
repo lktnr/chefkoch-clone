@@ -21,10 +21,11 @@ app.config["API_VERSION"] = "v1"
 app.config["OPENAPI_VERSION"] = "3.0.2"
 app.config["OPENAPI_JSON_PATH"] = "api-spec.json"
 app.config["OPENAPI_URL_PREFIX"] = "/"
-app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
+app.config["OPENAPI_SWAGGER_UI_PATH"] = "/"
 app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 api = Api(app)
 
 
 # Bottom of file
 from .models.models import Recipe, Ingredient, User  # nopep8
+from . import views  # nopep8

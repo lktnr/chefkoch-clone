@@ -3,6 +3,6 @@ from sqlalchemy import select
 from . import app, session, engine
 
 
-# @app.route('/')
-# def home():
-#     return render_template('home.html')
+@app.route('/')
+def root():
+    return ''

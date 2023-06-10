@@ -79,7 +79,6 @@ blp = Blueprint(
 @blp.route('/')
 class Members(MethodView):
 
-    @blp.etag
     @blp.arguments(RecipeQueryArgsSchema, location='query')
     @blp.response(200, RecipeSchema(many=True))
     def get(self, args):
