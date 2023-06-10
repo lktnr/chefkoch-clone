@@ -29,3 +29,4 @@ api = Api(app)
 # Bottom of file
 from .models.models import Recipe, Ingredient, User  # nopep8
 from . import views  # nopep8
+from . import endpoints  # nopep8
