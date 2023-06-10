@@ -1,4 +1,6 @@
+aniso8601==9.0.1
 anyio==3.6.2
+apispec==6.3.0
 appnope==0.1.3
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
@@ -28,6 +30,7 @@ executing==1.2.0
 fastjsonschema==2.16.3
 filelock==3.9.0
 Flask==2.3.1
+flask-smorest==0.42.0
 flask-swagger-ui==4.11.1
 fqdn==1.5.1
 idna==3.4
@@ -49,6 +52,8 @@ jupyter_server==2.5.0
 jupyter_server_terminals==0.4.4
 jupyterlab-pygments==0.2.2
 MarkupSafe==2.1.2
+marshmallow==3.19.0
+marshmallow-sqlalchemy==0.29.0
 matplotlib-inline==0.1.6
 mistune==2.0.5
 nbclassic==0.5.6
@@ -101,10 +106,11 @@ uri-template==1.2.0
 validators==0.20.0
 virtualenv==20.17.1
 wcwidth==0.2.6
+webargs==8.2.0
 webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.5.1
 Werkzeug==2.3.0
 WTForms==3.0.1
 WTForms-Components==0.10.5
--e git+ssh://git@github.com/lktnr/chefkoch-clone.git@450b62b74338c0b85280af81412cf72f28b404be#egg=yourapplication
+-e git+ssh://git@github.com/lktnr/chefkoch-clone.git@a3c81aa5458d12b9b5fae77aa5ef5feec42a9823#egg=yourapplication
