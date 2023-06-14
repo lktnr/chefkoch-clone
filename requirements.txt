@@ -31,7 +31,6 @@ fastjsonschema==2.16.3
 filelock==3.9.0
 Flask==2.3.1
 flask-smorest==0.42.0
-flask-swagger-ui==4.11.1
 fqdn==1.5.1
 idna==3.4
 infinity==1.5
@@ -113,4 +112,4 @@ websocket-client==1.5.1
 Werkzeug==2.3.0
 WTForms==3.0.1
 WTForms-Components==0.10.5
--e git+ssh://git@github.com/lktnr/chefkoch-clone.git@a3c81aa5458d12b9b5fae77aa5ef5feec42a9823#egg=yourapplication
+-e git+ssh://git@github.com/lktnr/chefkoch-clone.git@0e9e472b41c7cac3b07bfed1f497ef89b5b22b11#egg=yourapplication

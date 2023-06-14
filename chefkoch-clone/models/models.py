@@ -1,11 +1,11 @@
 import datetime
 from typing import List
-from typing import Optional
 from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from .base import Base
+from sqlalchemy.sql import func
 
 
 class User(Base):
@@ -13,9 +13,10 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # default does not work when manually creating in pgadmin
-    creation_time: datetime = Column(DateTime, default=datetime.datetime.now)
-    name: Mapped[str] = mapped_column(String(30))
-    fullname: Mapped[Optional[str]]
+    creation_time = Column(
+        DateTime, default=func.now)
+    userName: Mapped[str] = mapped_column(String(30))
+    password: Mapped[str]
 
     recepies: Mapped[List["Recipe"]] = relationship(back_populates="user")
 
@@ -24,8 +25,9 @@ class Recipe(Base):
     __tablename__ = "recipe"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    creation_time = Column(
+        DateTime, default=func.now())
     user_id = mapped_column(ForeignKey("user.id"))
-    creation_time: datetime = Column(DateTime, default=datetime.datetime.now)
     title: Mapped[str]
     description: Mapped[str]
     duration: Mapped[int]

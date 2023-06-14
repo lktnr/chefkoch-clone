@@ -1,6 +1,8 @@
 flask --app chefkoch-clone run
 flask --app chefkoch-clone run --debug
 
+pip freeze > requirements.txt
+
 needed pages:
 
 Upload Page (https://www.chefkoch.de/mein-kochbuch/privatrezepte/neu/bearbeiten)

@@ -1,6 +1,4 @@
-from flask import flash, render_template, redirect, request
-from sqlalchemy import select
-from . import app, session, engine
+from . import app
 
 
 @app.route('/')

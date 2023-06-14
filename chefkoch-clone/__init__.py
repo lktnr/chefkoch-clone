@@ -2,7 +2,6 @@ from flask import Flask
 from sqlalchemy import create_engine
 from .models.base import Base
 from sqlalchemy.orm import Session
-from flask_swagger_ui import get_swaggerui_blueprint
 from flask_smorest import Api
 
 
@@ -12,6 +11,7 @@ app = Flask(__name__)
 engine = create_engine(
     "postgresql+psycopg2://root:root@localhost:5432/postgres")
 
+from .models.models import Recipe, Ingredient, User  # nopep8, imports tables before create_all()
 Base.metadata.create_all(engine)
 session = Session(engine)
 
@@ -27,6 +27,5 @@ api = Api(app)
 
 
 # Bottom of file
-from .models.models import Recipe, Ingredient, User  # nopep8
 from . import views  # nopep8
 from . import endpoints  # nopep8
