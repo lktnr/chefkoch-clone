@@ -11,7 +11,7 @@ app = Flask(__name__)
 engine = create_engine(
     "postgresql+psycopg2://root:root@localhost:5432/postgres")
 
-from .models.models import Recipe, Ingredient, User  # nopep8, imports tables before create_all()
+from .models.models import Recipe, Ingredient  # nopep8, imports tables before create_all()
 Base.metadata.create_all(engine)
 session = Session(engine)
 
