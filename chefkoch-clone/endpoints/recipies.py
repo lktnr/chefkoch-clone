@@ -1,12 +1,12 @@
 from flask.views import MethodView
 from ..models.models import Recipe, Ingredient
-from sqlalchemy import select
+from sqlalchemy import and_, select
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 import marshmallow as ma
 from marshmallow_sqlalchemy.fields import Nested
 from flask_smorest import Blueprint, abort
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, SQLAlchemySchema, auto_field
-from .. import api, session
+from .. import session
 from .ingredients import IngredientQueryArgsSchema
 
 
@@ -26,7 +26,20 @@ class RecipeQueryArgsSchema(ma.Schema):
     duration = ma.fields.Int()
     difficulty = ma.fields.Int()
     calories = ma.fields.Int()
-    ingredients = ma.fields.List(ma.fields.Nested(IngredientQueryArgsSchema))
+    ingredients = ma.fields.List(ma.fields.Nested(
+        IngredientQueryArgsSchema(exclude=("recipe_id",))))
+
+    # for filtering based on ingredients
+    # @ma.pre_load
+    # def prepare_ingredients(self, data, **kwargs):
+    #     if "ingredients" in data:
+    #         ingredients = []
+    #         for json_ingredient in data["ingredients"]:
+    #             ingredient = IngredientQueryArgsSchema().loads(json_ingredient)
+    #             ingredients.append(ingredient)
+    #         data = data.to_dict()
+    #         data["ingredients"] = ingredients
+    #     return data
 
     @ma.post_load
     def create_ingredients(self, data, **kwargs):
@@ -47,11 +60,11 @@ blp = Blueprint(
 @blp.route('/')
 class Recepies(MethodView):
 
-    # TODO: fix filtering
-    @blp.arguments(RecipeQueryArgsSchema, location='query')
+    # No filtering based on ingredients
+    @blp.arguments(RecipeQueryArgsSchema(exclude=("ingredients",)), location='query')
     @blp.response(200, RecipeSchema(many=True))
     def get(self, recipe):
-        """FIX FILTERING Filter all recipes"""
+        """Filter all recipes"""
         query = select(Recipe)
         if "title" in recipe:
             query = query.where(Recipe.title.ilike(f'%{recipe["title"]}%'))
@@ -65,10 +78,16 @@ class Recepies(MethodView):
         if "calories" in recipe:
             query = query.where(Recipe.calories <= recipe["calories"])
         if "ingredients" in recipe:
-            subquery = select(Recipe.id).join(Recipe.ingredients).where(
-                IngredientQueryArgsSchema().fields.ingredient.in_(recipe["ingredients"])).distinct()
-            ma.pprint(session.execute(subquery))
-            query = query.where(Recipe.id.in_(subquery))
+            ingredient_filters = []
+            for ingredient in recipe["ingredients"]:
+                ingredient_filter = and_(
+                    Ingredient.ingredient == ingredient['ingredient']
+                )
+                ingredient_filters.append(ingredient_filter)
+
+            query = query.join(
+                Recipe.ingredients).where(ingredient_filters)
+
         recipes = session.execute(query)
         return [value for value, in recipes]
 
@@ -78,8 +97,12 @@ class Recepies(MethodView):
         """Add a new recipe"""
         recipe = Recipe(**new_recipe)
         session.add(recipe)
-        session.commit()
-        return new_recipe
+        try:
+            session.commit()
+        except:
+            session.rollback()
+            abort(500, message="Something went wrong")
+        return recipe
 
 
 @blp.route('/<int:recipe_id>')
@@ -107,7 +130,11 @@ class RecepiesById(MethodView):
         recipe.calories = new_recipe["calories"]
         recipe.ingredients = new_recipe["ingredients"]
 
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
+            abort(500, message="Something went wrong")
         return recipe
 
     @blp.response(204)
@@ -117,4 +144,9 @@ class RecepiesById(MethodView):
         if recipe == None:
             abort(404, message="Object not found")
         session.delete(recipe)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
+            abort(500, message="Something went wrong")
+        return recipe
