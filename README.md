@@ -2,6 +2,7 @@ flask --app chefkoch-clone run
 flask --app chefkoch-clone run --debug
 
 pip freeze > requirements.txt
+pip install -r requirements.txt
 
 needed pages:
 

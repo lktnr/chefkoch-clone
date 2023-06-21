@@ -1,6 +1,5 @@
-import datetime
 from typing import List
-from sqlalchemy import Column, DateTime, ForeignKey, String
+from sqlalchemy import Column, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
@@ -28,7 +27,8 @@ class Ingredient(Base):
     __tablename__ = "ingredient"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    recipe_id = mapped_column(ForeignKey("recipe.id"), nullable=False)
+    recipe_id = mapped_column(ForeignKey("recipe.id"),
+                              nullable=False)
     ingredient: Mapped[str]
     weight: Mapped[int]
 
