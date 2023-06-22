@@ -112,4 +112,3 @@ websocket-client==1.5.1
 Werkzeug==2.3.0
 WTForms==3.0.1
 WTForms-Components==0.10.5
--e git+ssh://git@github.com/lktnr/chefkoch-clone.git@0e9e472b41c7cac3b07bfed1f497ef89b5b22b11#egg=yourapplication
