@@ -5,7 +5,7 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 import marshmallow as ma
 from marshmallow_sqlalchemy.fields import Nested
 from flask_smorest import Blueprint, abort
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, SQLAlchemySchema, auto_field
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from .. import session
 from .ingredients import IngredientQueryArgsSchema
 
@@ -28,18 +28,6 @@ class RecipeQueryArgsSchema(ma.Schema):
     calories = ma.fields.Int()
     ingredients = ma.fields.List(ma.fields.Nested(
         IngredientQueryArgsSchema(exclude=("recipe_id",))))
-
-    # for filtering based on ingredients
-    # @ma.pre_load
-    # def prepare_ingredients(self, data, **kwargs):
-    #     if "ingredients" in data:
-    #         ingredients = []
-    #         for json_ingredient in data["ingredients"]:
-    #             ingredient = IngredientQueryArgsSchema().loads(json_ingredient)
-    #             ingredients.append(ingredient)
-    #         data = data.to_dict()
-    #         data["ingredients"] = ingredients
-    #     return data
 
     @ma.post_load
     def create_ingredients(self, data, **kwargs):

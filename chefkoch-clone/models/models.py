@@ -27,8 +27,7 @@ class Ingredient(Base):
     __tablename__ = "ingredient"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    recipe_id = mapped_column(ForeignKey("recipe.id"),
-                              nullable=False)
+    recipe_id = mapped_column(ForeignKey("recipe.id"))
     ingredient: Mapped[str]
     weight: Mapped[int]
 

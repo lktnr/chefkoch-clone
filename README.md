@@ -1,12 +1,27 @@
-flask --app chefkoch-clone run
-flask --app chefkoch-clone run --debug
+# H1 CHEFKOCH-ClONE
 
-pip freeze > requirements.txt
-pip install -r requirements.txt
+# H2 Installation
 
-needed pages:
+**prerequesites:**
 
-Upload Page (https://www.chefkoch.de/mein-kochbuch/privatrezepte/neu/bearbeiten)
-Rezept Page (https://www.chefkoch.de/rezepte/2587261406118751/Baguette-magique.html)
-Search/Home Page
-Profile Page
+- pip(lorenz.kuchtner@MACCJJXMX2K19 chefkoch-clone % pip --version
+  pip 23.1.2 from /opt/homebrew/lib/python3.10/site-packages/pip (python 3.10))
+- docker(Docker version 20.10.21, build baeda1f)
+
+1. install requirements (`pip install -r requirements.txt`)
+2. install and start docker images(`docker compose up --detach`)
+3. start application(`flask --app chefkoch-clone run --debug`)
+
+# H2 Startup
+
+- to run:
+  `flask --app chefkoch-clone run`
+- to run with debugger (recommended):
+  `flask --app chefkoch-clone run --debug`
+
+# H3 Requirements
+
+- To freeze:
+  `pip freeze > requirements.txt`
+- To install:
+  `pip install -r requirements.txt`
