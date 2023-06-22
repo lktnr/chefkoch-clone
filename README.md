@@ -8,7 +8,7 @@
 - docker(Docker version 20.10.21, build baeda1f)
 
 **steps to install:**
-1. clone repo (git clone git@github.com:lktnr/chefkoch-clone.git)
+1. clone repo (git clone git://github.com/lktnr/chefkoch-clone.git)
 2. install requirements (`pip install -r requirements.txt`)
 3. install and start docker images(`docker compose up --detach`)
 4. start application(`flask --app chefkoch-clone run --debug`)
