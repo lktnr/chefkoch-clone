@@ -1,6 +1,6 @@
-# H1 CHEFKOCH-ClONE
+# CHEFKOCH-ClONE
 
-# H2 Installation
+## Installation
 
 **prerequesites:**
 
@@ -12,14 +12,14 @@
 2. install and start docker images(`docker compose up --detach`)
 3. start application(`flask --app chefkoch-clone run --debug`)
 
-# H2 Startup
+## Startup
 
 - to run:
   `flask --app chefkoch-clone run`
 - to run with debugger (recommended):
   `flask --app chefkoch-clone run --debug`
 
-# H3 Requirements
+## Requirements
 
 - To freeze:
   `pip freeze > requirements.txt`
