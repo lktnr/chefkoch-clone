@@ -6,7 +6,8 @@
 
 - git(git version 2.34.1)
 - pip(pip 23.1.2, python 3.10)
-- docker(Docker version 20.10.21, build baeda1f)
+- docker(Docker version 24.0.2, build cb74dfc)
+- docker-compose
 
 **steps to install:**
 
