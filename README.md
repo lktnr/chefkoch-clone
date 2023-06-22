@@ -1,11 +1,10 @@
-# CHEFKOCH-ClONE
+# CHEFKOCH-CLONE
 
 ## Installation
 
 **prerequesites:**
 
-- pip(lorenz.kuchtner@MACCJJXMX2K19 chefkoch-clone % pip --version
-  pip 23.1.2 from /opt/homebrew/lib/python3.10/site-packages/pip (python 3.10))
+- pip(pip 23.1.2, python 3.10)
 - docker(Docker version 20.10.21, build baeda1f)
 
 1. install requirements (`pip install -r requirements.txt`)
