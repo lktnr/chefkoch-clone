@@ -5,6 +5,7 @@ import marshmallow as ma
 from flask_smorest import Blueprint, abort
 from marshmallow_sqlalchemy.fields import Nested
 from .. import session
+from sqlalchemy import select
 
 
 class IngredientSchema(SQLAlchemyAutoSchema):
@@ -39,12 +40,26 @@ blp = Blueprint(
 @blp.route('/')
 class Recepies(MethodView):
 
+    @blp.arguments(IngredientQueryArgsSchema(exclude=("recipe_id",)), location='query')
+    @blp.response(200, IngredientSchema(many=True))
+    def get(self, ingredient):
+        """Filter all ingredients"""
+        query = select(Ingredient)
+        if "ingredient" in ingredient:
+            query = query.where(Ingredient.ingredient.ilike(
+                f'%{ingredient["ingredient"]}%'))
+        if "weight" in ingredient:
+            query = query.where(Ingredient.weight <= ingredient["weight"])
+        recipes = session.execute(query)
+        return [value for value, in recipes]
+
     @blp.arguments(IngredientQueryArgsSchema)
     @blp.response(201, IngredientSchema)
     def post(self, new_ingredient):
         """Add a new ingrendient"""
         ingredient = Ingredient(**new_ingredient)
         session.add(ingredient)
+
         try:
             session.commit()
         except:
@@ -89,6 +104,7 @@ class RecepiesById(MethodView):
         if recipe == None:
             abort(404, message="Object not found")
         session.delete(recipe)
+
         try:
             session.commit()
         except:
