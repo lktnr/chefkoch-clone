@@ -15,6 +15,7 @@
 2. install requirements (`pip install -r requirements.txt`)
 3. install and start docker images(`docker compose up --detach`)
 4. start application(`flask --app chefkoch-clone run --debug`)
+5. go to http://127.0.0.1:5000/ for swagger ui
 
 ## Startup
 
