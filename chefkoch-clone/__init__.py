@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from .models.base import Base
 from sqlalchemy.orm import Session
 from flask_smorest import Api
+from flask_scss import Scss
 
 
 app = Flask(__name__)
@@ -29,5 +30,9 @@ warnings.filterwarnings(
     "ignore",
     message="Multiple schemas resolved to the name "
 )
+
+# Flask-Scss
+Scss(app)
+
 from . import views  # nopep8
 from . import endpoints  # nopep8
